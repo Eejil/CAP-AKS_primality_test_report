@@ -1,0 +1,200 @@
+% \documentclass[a4paper]{report}
+\documentclass[a4paper]{article}
+% \documentclass[a4paper]{report}
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+\usepackage{scrextend}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{mathtools}
+% \usepackage[italicdiff]{physics}
+\usepackage{multirow,booktabs}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{fullpage}
+%\usepackage{lastpage}
+\usepackage{braket}
+%\DeclareMathOperator{\Tr}{Tr}
+\usepackage{stix}
+\usepackage{hyperref}
+\definecolor{black}{rgb}{0.0,0.0,1}
+% \hypersetup{colorlinks,breaklinks,
+%             linkcolor=black,urlcolor=black,
+%             anchorcolor=black,citecolor=black}
+\usepackage{fancyhdr}
+\usepackage{mathrsfs}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage{calc}
+\usepackage{multicol}
+\usepackage{cancel}
+\usepackage[retainorgcmds]{IEEEtrantools}
+\usepackage{empheq}
+\usepackage{framed}
+\usepackage[most]{tcolorbox}
+% \usepackage{xcolor}
+\colorlet{shadecolor}{orange!15}
+\parindent 0in
+\parskip 12pt
+\geometry{margin=1in, headsep=0.25in}
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+\newtheorem{reg}{Rule}
+\newtheorem{exer}{Exercise}
+\newtheorem{note}{Note}
+\usepackage{setspace}
+\usepackage{minitoc}
+% \usetikzlibrary{decorations}
+% \usetikzlibrary{matrix,arrows}
+\usepackage{ocgx}
+\usepackage{float}
+\usepackage{appendix}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{arydshln} % dashed line in table
+\usepackage[version=4]{mhchem} % https://docs.moodle.org/310/en/Chemistry_notation_using_mhchem
+\usepackage{textcomp}
+\usepackage{siunitx}
+\usepackage{authblk} % Handle multiple authors and afficliations
+
+% Python listing environment setup
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+%     commentstyle=\color{codegreen},
+%     keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+%     stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+%     breakatwhitespace=false,         
+    breaklines=true,                 
+%     captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+%     showspaces=false,                
+%     showstringspaces=false,
+%     showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+
+\thispagestyle{empty}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{1em}
+\renewcommand{\baselinestretch}{1}
+ 	
+%  \setcounter{tocdepth}{3} % Add subsubsection in TOC
+% \setcounter{secnumdepth}{3} % Add numbering to subsubsections
+% \renewcommand{\thechapter}{\Roman{chapter}} % Number chapter with Roman numbers
+% \addto\captionsenglish{\renewcommand{\chaptername}{Part}}   % Rename chapter 'Part'
+% \renewcommand*\thesection{\arabic{section}} % Hide chapter number in section 
+% \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
+% \usepackage{chngcntr}
+% \counterwithin{figure}{section}
+
+\title{Project Formalization in Lean: \\[.25em] The AKS primality test} % title
+\author[1]{Luciano Baldassi} % author
+% \author[2]{} % author
+% \author[3]{} % author
+\date{\today} % date
+
+\makeatletter 
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  DOCUMENT START
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% TO DISPLAY TITLEPAGE
+\def\displayTitlePage{1}
+% TO DISPLAY TITLE
+% \def\displayTitle{0}
+% TO DISPLAY ABSTRACT
+\def\displayAbstract{1}
+% TO DISPLAY TOC
+\def\displayTOC{1}
+% TO DISPLAY APPENDIX
+\def\displayAppendix{1}
+% TO DISPLAY BIBLIOGRAPHY
+\def\displayBib{1}
+
+\def\finished{0}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  PAPER  TITLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \title{}
+
+
+\if\displayTitlePage1
+\input{00-titlepage}
+\fi
+
+\if\displayTOC1
+    \tableofcontents
+    % \listoffigures 
+    % \listoftables
+    \clearpage
+\fi
+
+\if\displayAbstract1
+    \input{abstract}
+    % \clearpage
+\fi
+
+% \begin{center}
+%     {\LARGE \bf -- Report -- \\
+%     \thetitle \\}\hspace{1pt}\\
+%     by Luciano Baldassi \\
+%     Vrije Universiteit Amsterdam \\
+%     2020-2021\\ 
+%      \today
+% \end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  BODY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{body}
+% \input{body.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  BIBLIOGRAPHY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\if\displayBib1
+    \clearpage
+    \addcontentsline{toc}{chapter}{Bibliography}
+    \nocite{*}
+    \bibliographystyle{acm}
+    % \bibliographystyle{IEEEtranS}
+    \bibliography{bibliography.bib}
+%\pagebreak
+\fi 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\if\displayAppendix0
+    \pagebreak
+    \appendixpage
+    \appendix
+    \input{appendix}
+\fi
+
+\end{document}
