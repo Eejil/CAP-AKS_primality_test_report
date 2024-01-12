@@ -7,7 +7,7 @@ Gonna do that tonight
 ### Organisation of the LaTex project
 Files
 - `main.tex` 
-    Contains the definitions of the LaTeX project, \usepackage{}, 
+    Contains the definitions of the LaTeX project, \usepackage{}, and general layout.
     Contains also some control flow to display/hide specific sections of the document when compiling the pdf (around lines 120-135). To hide/display said sections, change the number between bracket to 0/1. To display everything, turn \finished to 1.
 - `body.tex`
     Contains \import statements to the section subfiles. 
