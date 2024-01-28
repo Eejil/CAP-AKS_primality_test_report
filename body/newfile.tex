@@ -1,0 +1,81 @@
+\section{Tristan's Notes}
+
+\begin{enumerate}
+    \item First step of the proof 
+During each step we will primarily provide examples to what is said sometimes we additionally state results from other courses al these are from abstract algebra by dummit and foote since this is what we used for rings and fields. \\
+We begin by stating what we want to proof the theorem is as followed: the aks algorithm produces a prime that is: Given steps 1-6 of the procedure the algorithm will produce a prime. \\ 
+To do this  we suppose not that is we suppose there is some number $n$ which we input into $ALG(n)$ with as a result $ALG(n)$ is prime even though initially $n$ was a composite number.  More concretely this means that all assumptions of the steps are assumed true and $n$ is a composite we will use the other assumptions later. First notice that by the fifth step we have 
+\begin{equation}
+    (X+a)^n = X^n+a \in \mathbf{Z}[x]\backslash(n,X^r-1)
+    \label{e1}
+\end{equation}
+Then if $n$ is a composite and by the FTA we notice there is a prime factor $p\neq n$ so that $pk=n$ this means in terms of $(\ref{e1})$ that for some polynomials $p_1(x),p_2(x)$:
+\begin{equation}
+    \begin{split}
+        (X+a)^n &= X^n+a+pkp_1(x)+(X^r-1)p_2(x)\\
+                &= X^n+a\in \mathbf{Z}[x]\backslash(p,X^r-1)
+                \label{e2}
+    \end{split}
+\end{equation}
+This now is the new equation. Since $\mathbf{Z}$ is a UFD we notice that $\mathbf{Z}[X]$ is a UFD which means that for any element in $\mathbf{Z}[X]$ there must be a irreducible factorisation of that element. More concretely this verifies that $X^r-1$ has such a factorisation. From here we notice that being a irreducible factor in $\mathbf{Z}[X]$ may not coincide with being one in $(\mathbf{Z}\backslash p\mathbf{Z})[X]$ as an example we show one such instance: For example take $X^2+3X-6$ then we notice that since $3|3$ and $3|-6$ yet $9$ doesn't divide the last coefficient we have by Eisenstein's theorem from section 9.4 that this is irreducible. However this polynomial no roots in $(\mathbf{Z}\backslash 5\mathbf{Z})[X]$ so that by another criteria from that section it is not irreducible over this polynomial ring since its degree $<=2$. From this we notice we require a polynomial which is irreducible in the ring $(\mathbf{Z}\backslash p\mathbf{Z})[X]$ we name this polynomial $h(x)$ and more or less the same argument as before verifies that:
+\begin{equation}
+    \begin{split}
+        (X+a)^n &= X^n+a+pp_1(x)+h(x)k(x)p_2(x)\\
+                &= X^n+a\in \mathbf{Z}[x]\backslash(p,h(x))
+                \label{e3}
+    \end{split}
+\end{equation}
+Were $h(x)|X^r-1$ since its a factor of the polynomial. From here we are first going to compute what this new ring is this requires a little result called the third isomorphism theorem (this was stated in group theory, but never used it is also known as the divide above and below by a fraction for ideals or normal subgroups in group theory): 
+\begin{equation}
+    \mathbf{Z}[X]\backslash(p,h(x))\cong (\mathbf{Z}\backslash p\mathbf{Z})[X]\backslash(h(x))
+\end{equation}
+\textbf{Proof} to show this we use the theorem stated we won't verify we can use it:
+\begin{equation*}
+    \mathbf{Z}[X]\backslash(p,h(x))\cong (\mathbf{Z}[X]\backslash (p))\backslash (p,h(x))\backslash (p)) 
+\end{equation*}
+Now we use two things firstly by section 9.1 we have that the top of the left side is isomorphic to $(\mathbf{Z}\backslash p \mathbf{Z})[X]$ this is a field of $p$ elements. The right side is isomorphic to $(h(x))$ which is a irreducible polynomial in this field of order $m=\deg{h(x)}$. Then by an exercise from section 9.2 we notice this iso is in fact a finite field of $p^m$ elements. If we take away its zero we notice it has $p^m-1$ elements last this field is cyclic by a corollary from section 9.5. Next we consider some elements of $(\ref{e2})$. Then we can notice these generate a subgroup and we have that $g\in G$  means $g$ is nonzero. If this were not so we would see $x+a\in G$ and $x+a=0$ meaning that $(x+a)^n=0^n=0$ however this is by the fifth step $x^n+a$ so that $x^n=-a=x$ by the fact that $x+a=0$. Now we notice that since $x(x^{n-1}-1)=0$ and since $x\neq 0$ that $x^{n-1}=1$. From this and  $x^{n-1}-1|x^r-1$  which we will verify later we have there is only
+irreducible-element namely $x^{n-1}-1$ and thereby then $d=1$ which can't be because even the lb for $d$ is $\log(3)^2>1$ so we conclude all elements are nonzero. Next (to give an example) we consider some factorisation of $g(x)=\Pi_{0\leq a \leq A}(x+a)^{e_i}\in H$ we have that a exponent is 
+\begin{equation}
+g(x)^n = \Pi_a((x+a)^n)^{e_i}=\Pi_a(x^n+a)^{e_i} = g(x^n) \in \mod {p,x^r-1}
+\end{equation}
+Which shows $g$ is a multiplicative function for this number $n$ by the assumption. More generally we define $S$ to be the set of values $k$ were this function is multiplicative, we have seen $n\in S$ and since $p$ is a prime we also have that $p\in S$ by the original theorem.
+\item Second step of the proof we will now obtain a upper bounds on the size of $G$ using the set $S$. We start with lemma 4.1 this is that the set of multiplicative functions $g(x)$ is closed: that is if $a,b\in S$ then $ab\in S$:\\
+\textbf{Proof} We assume the stated facts that is there is some $k,l$ so that $g(x)^k=g(x^k)\mod{p,x^r-1}$ and the same for $k$: notice first that for any $x$ we have $g(x)^k=g(x^k)\mod{p,x^r-1}$ this then apparently also work for $x=x^l$, from which we deduce that $g(x^l)^k=g((x^l)^k)\mod{p,(x^{l}})^r-1$. And since we know that $x^r-1|(x^l)^r-1$ we then also notice that this is true in $x^r-1$ by again writing it out which was done in the first part (going from 4.1 to 4.2 and to 4.3.)\\
+Now we can start to compute this we notice it is 
+\begin{equation}
+    g(x)^{ab}=(g(x)^a)^b=(g(x^a))^b=g(x^{ab})\mod{p,x^r-1}
+\end{equation}
+we have used first the definition of exponentiation in a group, second the fact that $a\in S$ third the fact that $b\in S$ and fourth the previously stated part. Notice the main issue in this proof is to verify the multiplication is again in the same group and not that it is true. 
+We consider the second lemma that states that, this idea is used more often (it also verifies were I say $d=1$): 
+given $x^{rk}-1$ we can notice it has a divisor $x^r-1$ by using $p(x)=1+x+x^2+...x^k$ as its multiplicative. This then shows that:
+\begin{equation}
+        x^{a-b}-1=(x^r-1)p(x)
+\end{equation}
+so that $x^r-1$ divides this, less difficult is to notice that: $x^b(x^{a-b}-1)=x^a-x^b$ which shows the second argument made. The next argument made follows from the first observation that for $a,b\in S$ $v-u|g(v)-g(u)$ this is true because the by it being the same in the polynomial-ring, then noting that $g(x^a)=g(v)$ and that also for $x^b$ so then $x^a-x^b=u-v|g(u)-g(v)$. Noting again that $a,b\in S$ we can see that $[g(x)^a]=[g(x^a)]=[g(x^b)]=[g(x)^b]$ were the middle equality follows from the fact that $x^a-x^b|g(x^a)-g(x^b)$ since this means that 
+\begin{equation}
+    (x^a-x^b)k(x)+g(x^b)=g(x^a).
+\end{equation}
+The second function is now remainder of ideal $(p,x^r-1)$ and therefore these are in the same class.  Notice the group is multiplicative so that we can divide left side by the right and notice that $g(x)^{a-b}=1$. On the other hand we notice $G$ can be generated by  a single element so that $g(x)^{a-b}=1=g(x)^{k|G|}$ which is what was to be shown this $k|G|$ comes from Lagrange's theorem. \\
+Next Since $n$ is not a perfect power we have that  $n^i\neq p^j $  this next implies that all $n^ip^j$ are distinct, this is more precisely: $i\neq I$ or $j\neq J$ then $n^ip^j\neq n^Ip^J$ to show this we assume the opposite that is $n^ip^j=n^Ip^J$ then if $i=I$ and $j\neq J$ then by the second we have that WLOG $p^j>p^J$ so that then clearly $n^ip^j>n^Ip^J$ which is against the original assumption. If we assume that $i>I$ then this argument work much the same so we see all $n^ip^j$ are distinct when $i$ or $j$ are. Next we consider the cardinality of these unique $n^ip^j$ this is by the product formula for cardinality: $|n^ip^j|=|n^i||p^j|=(\sqrt{|R|}+1)(\sqrt{|R|}+1)>|R|$ and then by the pigeonhole principle we see that: $[n^ip^j]=[n^Ip^J]\in \mod{R}$
+\begin{equation}
+    \begin{split}
+        |G|\leq k|G|&=|n^ip^j-n^Ip^J|\\
+        &\leq (np)^{\sqrt{|R|}}-1\\
+        &<n^{2{\sqrt{|R|}}}-1
+    \end{split}
+\end{equation}
+The first part is true because if $p,n\in S$ so that by lemma $4.1,4.2$ the left is the right. Noticing that $i,j\leq \sqrt{|R|}$ and therefore that $n^ip^j\leq (np)^{\sqrt{|R|}}$. Next we use that $n^Ip^J\geq 1$ so that $-n^Ip^J\leq -1$ hence in total this leads to the second inequality. The last inequality follows from the fact that if $p|n$ then $p<n$. 
+\item Final step of the proof: 
+We have some more steps first we can consider $[f(x)]=[g(x)] \in \mod{p,h(x)}$ this implies that 
+\begin{equation}
+    \begin{split}
+        f(x)      &= g(x) + pp_1(x)+h(x)p_2(x)\\
+        f(x)-g(x) &= pp_1(x)+h(x)k(x)\\
+        f(x)-g(x) &= h(x)k(x) \in \mod{p}.
+    \end{split}
+\end{equation}
+Next we can notice that by the degree formula and upper bound on the degree of $f,g$ that $deg(f(x)-g(x))<\deg h(x)$ however we notice that $\deg(h(x)k(x))=\deg(h(x))+\deg(k(x))$ which can only happen if $k(x)=0\in \mod{p}$. From here then notice that $[f(x)]=[g(x)]\in \mod{p}$ this means that if $f,g$ are the same then reduction will not leave this unaltered, this is what we will additionally do for polynomials that are additionally in the same class in $G$. The goal of this is to show that $f,g $ in the same class are not counted as distinct elements. Now we will show this is the case:
+We assume that $f,g\in \mathbf{Z}[X]$ and $[f],[g]\in G$ then we have for $f,g$ as degree less then $|R|$ that $[f(x)]=[g(x)]\in \mod{p}$
+\textbf{Proof} We define $\delta(y) = f(y)-g(y)$ for any $k\in S$ we then have that: $\delta(x^k)= f(x^k)-g(x^k)=f(x)^k-g(x)^k=0\in \mod{p,h(x)}$ were the first line follows from the definition the second because $k\in S$ and the last by the assumption that $[g(x)]=[f(x)]\iff [g(x)^k]=[f(x)^k] $ now if $x\in \mathbf{F}_p$ were this is the field generated in the beginning then since $\mathbf{F}$ is iso to some cyclic group we have that $x$ has order $r$ and we have that $x^k$ for $k\in R$ are all distinct. From here we next have that $\delta$ has more then $|R|$ roots at the same time $\deg{f(x)}<|R|$ which implies by another theorem from 9.5 that the amount of roots of $f$ can be at most $|R|$ these things can only happen if $\delta(y) = 0$ this is allowed by a proposition from 9.5(the degree argument of this). This next means that $f,g$ share class in $\mod{p}$.\\ Here we now use this we define $B$ to be the floor of $2\log{n}$ then we can notice that first $|R|=\sqrt{|R|}\sqrt{|R|}>\sqrt{|R|}\log{n}=B$ were we assume that $|R|>\log{n}^2$. From here we now know that each $\Pi_{a\in T}(x+a)$ gives a truly distinct representation by lemma 4.3 thus when we count the elements we form all the subsets of $\{0,..,B\}$ and these elements are not all so we know $|G|$ is larger then it hence we then see that $|G|\ge 2^{B+1}-1$ were we now have that $2^{B+1}-1=2(2^{2\log{n}})^\sqrt{|R|}-1>n^{\sqrt{|R|}}-1$
+
+\end{enumerate}

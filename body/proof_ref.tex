@@ -1,0 +1,266 @@
+\section{Notes}
+
+\begin{theorem} \label{theorem:1}
+Given an integer $n \geq 2$, for all integers $a$ coprime to $n$, $n$ is prime if and only if
+
+\begin{equation}
+    (X + a)^{n} \equiv X^{n} + a \Mod n
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+
+We begin by rewriting $(X + a)^{n}$ using the Binomial theorem:
+
+\begin{equation*}
+    \begin{split}
+        (X + a)^{n} &= \sum_{k=0}^{n} \binom{n}{k} X^{n-k} a^{k} \\
+        &= \sum_{k=0}^{n} \frac{n!}{(n-k)!\;k!} X^{n-k} a^{k} \\
+        &= \frac{n!}{(n-0)!\;0!} X^{n} + \sum_{k=1}^{n-1} \frac{n!}{(n-k)!\;k!} X^{n-k} a^{k} + \frac{n!}{(n-n)!\;n!} a^{n} \\
+        &= X^{n} + \sum_{k=1}^{n-1} \binom{n}{k} X^{n-k} a^{k} + a^{n}.
+    \end{split}
+\end{equation*}
+
+To proceed with the proof, we utilise the following result which we prove in the appendix:
+
+\begin{lemma} \label{lemma:1}
+    $n$ is prime if-and-only-if $\binom{n}{k} \equiv 0 \Mod n$ for $k \in \{ 2,3,4,...,n-1 \}$.
+\end{lemma}
+
+Continuing, we consider two directions:
+
+$(\Longrightarrow)$: Assume that $n$ is prime. Then $a^{n} \equiv a \Mod{n}$ by the Fermat's little theorem. By Lemma \ref{lemma:1}, we have $\sum_{k=1}^{n-1} \binom{n}{k} X^{n-k} a^{k} \equiv 0 \Mod{n}$. And so it follows that $(X + a)^{n} \equiv X^{n} + a \Mod n$.
+\newline
+
+$(\Longleftarrow)$: Assume now that $(X + a)^{n} \equiv X^{n} + a \Mod n$. We can rewrite it as $$ \Biggl( \sum_{k=1}^{n-1} \binom{n}{k} X^{n-k} a^{k} \Biggr) + (a^{n} - a) \equiv 0 \Mod n $$ using the expansion above. Then it must hold that $\sum_{k=1}^{n-1} \binom{n}{k} X^{n-k} a^{k} \equiv 0 \Mod n$ \colorbox{red}{which implies} that $n$ is prime by our claim.
+
+
+Notice that for all $n \in \mathbb{N}$ and $k \in \{ 2,3,4,...,n-1 \}$ we have $n \sum_{k=1}^{n-1} \frac{(n-1)!}{(n-k)!\;k!} X^{n-k} a^{k} \equiv 0 \Mod{n}$.
+\luc{ This is true iff n is prime.
+Note that the factors in the denominator of the factorial are smaller than $n$. Since $n$ is prime, then all factors in the denominator in the sum do not divide $n$. (if $n$ wasn't prime, then there would be a factor of $n$ in the factorial which would simplify $n$, thus making it non equal to zero mod n).}
+
+\end{proof}
+
+% \textbf{Theorem}: (please proof read it and correct whatever u see)\\\\
+The if and only if statement can be rewritten as:
+\begin{equation*}
+    \text{$n$ is prime}\quad\Longleftrightarrow\quad(x + a)^n - (x^n + a)\equiv 0 \Mod n
+\end{equation*}
+Which essentially says that $n$ is prime if and only if $n$ divides all coefficients of the polynomial $(x+a)^n-(x^n+a)$. By the binomial theorem, we can write this polynomial as:
+\begin{equation}
+    \begin{split}    
+        \left(\sum_{k=0}^{n} \binom{n}{k}x^{n-k}a^k\right)-\left(x^n+a \right)
+        & =\left(\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\right)+ x^n +a^n-\left(x^n+a\right)
+        \\ &= \left(\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\right) + \left(a^n-a\right)
+    \end{split}
+    \label{binom}
+\end{equation}
+In order to prove that (\ref{binom}) can be divided by $n$, or equivalently, it is congruent to $0 \Mod n$, we use the two following statements:
+\begin{itemize}
+    \item \textbf{Claim}: $n$ is prime if and only if $\binom{n}{k}\equiv 0 \Mod n$ for $k\in\{2,3,4,\dots,n-1\}$. 
+    \item \textbf{Fermat's little theorem}: If $n$ is a prime number, for any integer $a$,
+    \begin{equation*}
+        a^n \equiv a \Mod n \quad\text{or,}\quad a^n -a \equiv 0 \Mod n.
+    \end{equation*}
+\end{itemize}
+Remember that we have to show in both directions.
+\begin{equation*}
+    \text{$n$ is prime}\quad\Longleftrightarrow\quad \left(\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\right) + (a^n-a)\equiv 0 \Mod n
+\end{equation*}
+
+\begin{itemize}
+    \item $\Longrightarrow$. Assume $n$ is prime. Then $\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\equiv0\Mod n$ by our claim, and $(a^n-a)\equiv 0 \Mod n$ by Fermat's little theorem. 
+    \item $\Longleftarrow$. Assume $\left(\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\right) + (a^n-a)\equiv 0 \Mod n$. Then it must hold that $\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\equiv 0 \Mod n$ which implies that $n$ is prime by our claim.
+\end{itemize}
+
+\section{Proof of the Theorem of Agrawal, Kayal, and Saxena}
+
+Note that the \ref{theorem:1} is itself a valid primality test. We could compute $(X + a)^{n} - (X^{n} + a) \Mod n$ and check whether or not $n$ divides each coefficient. But since computing $(X + 1)^{n} \Mod n$ requires checking $n+1$ terms in the binomial expansion, it becomes computationally expensive for large $n$. For that reason, it is more optimal to also reduce mod some small degree polynomial, so that neither the coefficients nor the degree get large.
+
+Consider the smallest such polynomial $(X^{r} - 1)$. Dividing $(X + a)^{n}$ by $(X^{r} - 1)$ leaves us with the remainder of $r + 1$ terms as opposed to $n + 1$. The question, of course, is how to determine the optimal parameter $r$ and if it even exists.
+
+\begin{itemize}
+    \item If $r$ is too large, there are less equivalence classes available, so the test may not be able to distinguish primes from composites in some of the cases.
+    \item If $r$ is too small, there are more factors available.
+\end{itemize}
+
+\begin{lemma} \label{lemma:4.1}
+
+If $a, b \in S$, then $ab \in S$.
+
+\end{lemma}
+
+\begin{lemma} \label{lemma:4.2}
+
+If $a, b \in S$ and $a \equiv b \Mod{r}$, then $a \equiv b \Mod{|G|}$.
+
+\end{lemma}
+
+
+\newpage
+
+\section{Proof overview (this is mostly for lean implementation, not how we will present it on the document)}
+
+The algorithm is based on the following characterisation of prime numbers:
+
+\begin{proposition} \label{statement}
+
+Given an integer $n \geq 2$, let $0 \leq r < n$ for which $\mbox{ord}_{r}(n) > (\log{n})^{2} \Mod r$. Then $n$ is prime if-and-only-if
+
+\begin{itemize}
+ \item $n$ is not a perfect power,
+ \item $n$ does not have any prime factor $\leq r$,
+ \item $(X + a)^{n} \equiv X^{n} + a \bmod (n, X^{r} - 1)\; \forall a \in \mathbb{Z}$ such that $1 \leq a \leq \sqrt{r} \log{n}$.
+\end{itemize}
+
+\end{proposition}
+
+\begin{remark}
+
+Recall that we need $r$ to be small, but not too small. The order of $n$ ensures just that.
+
+\end{remark}
+
+\begin{proof}
+
+We have two implications to show.
+
+$(\Longrightarrow)$: Assume $n$ is prime. The first two conditions then follow immediately. The third condition is given by Theorem \ref{theorem:1}, since $$\mathbb{Z}[X]/(n, X^{r} - 1) \subset (\mathbb{Z}/n\mathbb{Z})[X].$$ Namely, all polynomials in $\mathbb{Z}[X]/(n, X^{r} - 1)$ are contained in $(\mathbb{Z}/n\mathbb{Z})[X]$, hence the congruence holds also for $\mathbb{Z}[X]/(n, X^{r} - 1)$.
+
+$(\Longleftarrow)$: Assume, for the sake of contradiction, that $n$ is composite and all three conditions hold. We let $p$ be a prime dividing $n$ such that $$(X + a)^{n} \equiv X^{n} + a \bmod (p, X^{r} - 1).$$ We can now factor $X^{r} - 1$  into a product of cyclotomic polynomials $\prod_{d|r} \Phi_{d}(x)$, where each $\Phi_{d}(x)$ is irreducible in $\mathbb{Z}[X]$. Note that $\Phi_{d}(x)$ is not necessarily irreducible in $(\mathbb{Z}/p\mathbb{Z})[X]$, so we take $h(x)$ to be an irreducible factor of $\Phi_{d}(x) \Mod p$. Since $h(x)$ \colorbox{red}{divides} $X^{r} - 1$, it follows that
+
+\begin{equation*}
+    (X + a)^{n} \equiv X^{n} + a \bmod (p, h(x))
+\end{equation*}
+    
+\end{proof}
+
+% \textbf{Assumptions}
+% \begin{itemize}
+%     \item For an integer $n \geq 2$, $r$ is a positive integer $< n$.
+%     \item $n$ has order $>(\log n)^2 \Mod r $
+% \end{itemize}
+% \textbf{Statement:}
+% \begin{align}
+% \label{statement}
+%     \text{$n$ is prime} \iff & \text{- $n$ is not a perfect power}\nonumber\\
+%     & \text{- $n$ does not have a prime factor $\leq r$}\nonumber\\
+%     & (x+a)^n\equiv x^n+a \Mod {n,x^r-1}\,\,\,\forall a\in\mathbb{Z}\,\,\text{such that}\,\,1\leq a\leq \sqrt{r}\log n
+% \end{align}
+
+% \subsection{$\Longrightarrow$, by theorem 1}
+% We have to check the 3 statements assuming $n$ is prime. The first 2 are trivial. The third is given by theorem 1, since:
+% \begin{equation*}
+%     (\mathbb{Z}/(n,x^r-1)\mathbb{Z})[x] \subset (\mathbb{Z}/n\mathbb{Z})[x]
+% \end{equation*}
+% Namely, all polynomials in $(\mathbb{Z}/(n,x^r-1)\mathbb{Z})[x]$ are contained in $(\mathbb{Z}/n\mathbb{Z})[x]$, hence the congruence also holds in $(\mathbb{Z}/(n,x^r-1)\mathbb{Z})[x]$ if it holds in $(\mathbb{Z}/n\mathbb{Z})[x]$.
+
+
+% \subsection{$\Longleftarrow$, by contradiction}
+% Assume $n$ is composite, and all 3 conditions of (\ref{statement}) hold (don't forget initial assumptions).\\\\
+% There are 2 main equations we want to get.\\\\
+% Let $p$ be a prime number dividing $n$, then
+% \begin{equation}
+% \label{p,xr}
+%     (x+a)^n\equiv x^n+a \Mod {p,x^r-1}
+% \end{equation}
+% Now we factor $x^r-1$ into a product of cyclotomic polynomials: $\prod_{d|r}\Phi_d(x)$ where $\Phi_d(x)$ is the dth cyclotomic polynomial (\href{https://en.wikipedia.org/wiki/Cyclotomic_polynomial}{link}). By definition, every cyclotomic polynomial is irreducible in $\mathbb{Z}[x]$ but not necessarily in $(\mathbb{Z}/p\mathbb{Z})[x]$, so we take $h(x)$ to be an irreducible factor of $\Phi_r(x)\Mod p$. Since $h(x)$ divides $x^r-1$, it follows that:
+% \begin{equation}
+%     (x+a)^n\equiv x^n+a \Mod {p,h(x)}
+% \end{equation}
+
+
+\begin{theorem}[Third Isomorphism Theorem]
+\label{third_iso}
+    Let $I$ and $J$ be ideals of a ring $R$ such that $I\subseteq J$. Then,
+    \begin{equation*}
+        R/I \cong (R/J)/(J/I)
+    \end{equation*}
+\end{theorem}
+Let $R=\mathbb{Z}[x]$, $I=(p,h(x))$, $J=p$. By theorem \ref{third_iso}, it follows that
+\begin{equation*}
+    \mathbb{Z}[x]/(p,h(x))\cong (\mathbb{Z}[x]/p)/((p,h(x))/p)
+\end{equation*}
+which is isomorphic to $(\mathbb{Z}/p\mathbb{Z})[x]/h(x)$. We can now apply exercise 2 from section 9.2 in D. S. Dummit, R. M. Foote, Abstract Algebra that states:
+\begin{proposition}
+Let $F[x]$ be a finite field of order $q$, and let $f(x)$ be a polynomial in $F[x]$ with degree $n\geq 1$. Then $F(x)/(f(x))$ has $q^n$ elements.
+\end{proposition}
+Say that $F[x] = (\mathbb{Z}/p\mathbb{Z})[x]$ which has order $p$ and $f(x) = h(x)$. Assume that the degree of $h(x)$ is $m$. Then it follows that $(\mathbb{Z}/p\mathbb{Z})[x]/h(x)$ has $p^m$ elements, which is isomorphic to the field $\mathbb{F}(x):= \mathbb{Z}[x]/(p,h(x))$.
+\begin{proposition}[18, section 9.5 in book]
+\label{prop18}
+    A finite subgroup of a multiplicative group of a field is cyclic.
+\end{proposition}
+If we consider the multiplicative subgroup $\mathbb{F}\backslash \{0\}$ we realize it is cyclic by proposition \ref{prop18}.
+\subsubsection{Definition of important groups and sets}
+We have 2 groups to define: $H,G$ and 1 set $S$.\\\\
+Let $H$ be the elements $\Mod {p, x^r-1}$ generated multiplicatively by $x, x+1, x+2, ... , x+[A]$\\\\
+Let $G$ be the cyclic subgroup of $\mathbb{F}$ generated multiplicatively by $x, x+1, x+2, ... , x+[A]$. That is: $G$ is $H\Mod {p,h(x)}$. Note that all elements of $G$ are non-zero.\\\\
+To define $S$ we first have to define a function $g(x)= \prod_{0\leq a\leq A}(x+a)^{e_a}\in H$ such that:
+\begin{equation*}
+    g(x)^n=\prod_{a}((x+a)^n)^{e_a}\equiv \prod_{a}(x^n+a)^{e_a} \Mod {p,x^r-1} = g(x^n) \Mod {p,x^r-1}
+\end{equation*}
+by equation (\ref{p,xr}).\\
+Now define $S$ to be \{${k:g(x)^k\equiv g(x^k)\Mod {p,x^r-1}, \forall g\in H}\}$. Note that both $n,p$ are in $S$, as well as its powers.
+\subsubsection{Boundaries on $|G|$ (where contradiction happens)}
+\begin{itemize}
+    \item \textbf{Upper boundaries}
+\end{itemize}
+\textbf{Claim}: $n/p \in S$
+\begin{lemma} \label{lemma:4.1}
+If $a, b \in S$, then $ab \in S$.
+\end{lemma}
+\begin{lemma} \label{lemma:4.2}
+If $a, b \in S$ and $a \equiv b \Mod{r}$, then $a \equiv b \Mod{|G|}$.
+\end{lemma}
+
+Let $R$ be the subgroup of $(\mathbb{Z}/r\mathbb{Z})^*$ generated by $n$ and $p$.\\\\
+We know that $n$ is not a power of $p$ by our assumptions, so all integers of the form $n^ip^j$ with $i,j\geq 0$ are distinct. Similarly, all integers $(\frac{n}{p})^ip^j$ are also distinct.\\\\
+In fact, the number of possible integers $(\frac{n}{p})^ip^j$ with $0\leq i,j\leq \sqrt{|R|}$ is greater than $|R|$ so 2 integers must be congruent $\Mod r$. Namely, for some integers $i,j,I,J$ with $0\leq i,j,I,J \leq \sqrt{|R|}$:
+\begin{equation}
+\label{cong.r}
+    \left(\frac{n}{p}\right)^ip^j\equiv \left(\frac{n}{p}\right)^Ip^J\Mod r
+\end{equation}
+Remember that $p\in S$ and by our claim, $n/p\in S$, so by lemma \ref{lemma:4.1}, both integers in \ref{cong.r} are in $S$.\\\\
+Now we can apply lemma \ref{lemma:4.2} such that $|G|\,\,\,\text{divides}\,\,\,\left|\left(\frac{n}{p}\right)^ip^j-\left(\frac{n}{p}\right)^Ip^J\right|$. It follows that:
+\begin{equation*}
+    |G|\leq 
+    \left|\left(\frac{n}{p}\right)^ip^j-\left(\frac{n}{p}\right)^Ip^J\right|\leq
+    \left(\frac{n}{p}p\right)^{\sqrt{|R|}}-1\leq
+    n^{\sqrt{|R|}}-1
+\end{equation*}
+We now have the upper bound $|G|\leq n^{\sqrt{|R|}}-1$.
+\begin{itemize}
+    \item \textbf{Lower boundaries}
+\end{itemize}
+To give a lower bound on $|G|$ we must show that there are many distinct element in $G$.\\\\
+Assume that $f(x),g(x)\in \mathbb{Z}[x]$ with $f(x)\equiv g(x) \Mod{p,h(x)}$. It follows that $f(x)-g(x)\equiv h(x)k(x) \Mod p$ for some polynomial $k(x)\in\mathbb{Z}[x]$. Let $deg(f(x)), deg(g(x))<deg(h(x))$, hence $deg(f(x)-g(x))<deg(h(x))$. Since $deg(h(x)k(x))=deg(h(x))+deg(k(x))$, it must follow that $k(x) \equiv 0\Mod p$ and hence: $f(x)\equiv g(x) \Mod p$.\\\\
+We did this to show that all polynomials of the form:
+\begin{equation*}
+    \prod_{1\leq a\leq A}(x+a)^{e_a}\text{ with degree} < deg(h(x))
+\end{equation*}
+are distinct in $G$.\\\\
+Remember that $R$ was generated multiplicatively by $n$ and $p$ in $(\mathbb{Z}/r\mathbb{Z})$, hence it contains all elements of the form $n \Mod r$. By assumption, the order of $n\Mod r$ is greater than $(\log n)^2$, so $R$ has at least more than $(\log n)^2$ elements. We can now say that $|R|>B$ where $B=\lfloor \sqrt{|R|}\log n\rfloor$.\\
+Let $T$ be a proper subset of $\{0,1,2,...,B\}$. So, $|T|\leq B<|R|$. If we consider the polynomials
+\begin{equation}
+\label{pol}
+    \prod_{a\in T}(x+a)
+\end{equation}
+we realize that they are elements of $G$ and their degree is the number of elements $a\in T$, namely, $|T|$ which is less than $|R|$, this will be important to invoke the lemma below.
+\begin{lemma}
+\label{lemma:4.3}
+    Suppose that $f(x), g(x)\in\mathbb{Z}[x]$ with $f(x)\equiv g(x) \Mod {p,h(x)}$ such that their reductions in $\mathbb{F}$ are in $G$.
+    If $deg(f(x)),deg(g(x))<|R|$, then $f(x)\equiv g(x) \Mod p$
+\end{lemma}
+By taking the contrapositive of lemma \ref{lemma:4.3}, it follows that the polynomials \ref{pol} are distinct in $G$ if they are distinct in $(\mathbb{Z}/p\mathbb{Z})[x]$ for every distinct $T$ (left to show that they are distinct in $(\mathbb{Z}/p\mathbb{Z})[x]$:
+\begin{equation*}
+    \prod_{a\in T}(x+a) \nequiv\prod_{a\in T'}(x+a)\Mod p\Longrightarrow \prod_{a\in T}(x+a) \nequiv\prod_{a\in T'}(x+a)\Mod {p,h(x)}\text{  for $T\neq T'$}
+\end{equation*}
+\\
+Hence we just need to count the possible sets $T$ which is $2^{B+1}-1$. This holds because the cardinality of $\{0,1,2,...,B\}$ is $B+1$, and the number of the proper sets is the cardinality of the power set minus 1. \\\\
+So we can write: $|G|>2^{B+1}-1$. We now just have to show that $2^{B+1}-1>n^{\sqrt{|R|}}-1$:
+\begin{align*}
+& 2^{B+1}-1>n^{\sqrt{|R|}}-1 \Longleftrightarrow 2^{B+1}>n^{\sqrt{|R|}} \Longleftrightarrow \log {(2^{B+1})} > \log {(n^{\sqrt{|R|}})}\Longleftrightarrow B+1 > \sqrt{|R|}\log n\\
+& \Longleftrightarrow \lfloor\sqrt{|R|}\log n\rfloor+1 > \sqrt{|R|}\log n
+\end{align*}
+Hence we proved that $|G|>n^{\sqrt{|R|}}-1$, contradicting the upper boundary of $|G|$ we got before.

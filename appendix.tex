@@ -1,2 +1,42 @@
 
 % \input{Appendices/}
+
+\begin{proof}[Proof of Lemma \ref{lemma:1}]
+
+\textbf{Proof of claim:}\\
+\\
+$\Longrightarrow$. Assume that $n$ is prime and let $k\in\{2,3,4, \dots, n-1\}$. 
+Write $n$ choose $k$ as:
+\begin{equation*}
+    \binom{n}{k} = \frac{n!}{k!(n-k)!} = \frac{n(n-1)\cdots(n-k+1)}{k!}
+\end{equation*}
+Since $k<n$, none of the factors of $k!$ divide $n$, so we can say that $\binom{n}{k} = cn$ for $c = \frac{(n-1)...(n-k+1)}{k!}$ an integer.
+Hence $n | \binom{n}{k}$, namely, $\binom{n}{k}\equiv 0 \Mod n$.
+\\
+\\
+$\Longleftarrow$. We prove the contra-positive implication:
+\begin{equation*}
+    n\text{ is composite}\Longrightarrow\exists k\in\{2,3,4,\dots,n-1\} \text{ such that } \binom{n}{k}\nequiv 0 \Mod n
+\end{equation*}
+Assume $n$ is composite. Then there is a prime number $1<p<n$ such that $n=pd$ for some integer $d$. Similarly as before, we can write:
+$\binom{n}{k}=\frac{n(n-1)\cdots(n-k+1)}{k!}= \lambda n$ for $\lambda = \frac{(n-1)\cdots(n-k+1)}{k!}$.
+If we can show that $\lambda$ is not an integer, i.e., $\binom{n}{k}$ is not divisible by $n$, we are done.\\
+\\
+Let's choose $k=p$.
+We then have that $\lambda = \frac{(pd-1)\cdots(pd-p+1)}{p!}$.
+We want to show that the numerator of $\lambda$ is not divisible by $p$ and hence by $p!$, so we consider $(pd-1)(pd-2)\cdots(pd-p+1)\Mod p$.
+It follows that:
+\begin{align*}
+    (pd-1)(pd-2)\cdots(pd-p+1)
+    & \equiv -1\cdot-2\cdots-(p-1)
+    && \Mod p
+    \\ & \equiv (p-1)(p-2)\cdots1
+    && \Mod p
+    \\ & \equiv (p-1)!\,
+    && \Mod p
+\end{align*}
+Finally, we use Wilson's theorem which states that for any prime number $p$, we have $(p-1)!\equiv-1\Mod p$, showing that $\lambda$ is not an integer but a rational number and hence $n$ does not divide $\binom{n}{k}$.
+
+\cite[p4]{AGranville_2004}
+
+\end{proof}

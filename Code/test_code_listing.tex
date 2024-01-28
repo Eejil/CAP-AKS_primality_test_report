@@ -1,0 +1,105 @@
+
+
+\subsubsection*{Pseudocode:}
+
+\begin{lstlisting}[style = PsC_Style, caption=Pseudocode]
+for i in range(m-1):
+    for j in range(i+1, m):
+        [r,c] = np.where(M2 == M1[i,j])
+        for k in range(len(r)):
+            if M is None:
+                M = np.copy(VT)
+            else:
+                M = np.concatenate((M, VT), 1)
+            VT = np.zeros((n*m,1), int)
+return M
+\end{lstlisting}
+
+\subsubsection*{Lean:}
+
+\begin{lstlisting}[language=lean]
+theorem funext {f₁ f₂ : ∀ (x : α), β x} (h : ∀ x, f₁ x = f₂ x) : f₁ = f₂ := by
+  show extfunApp (Quotient.mk f₁) = extfunApp (Quotient.mk f₂)
+  apply congrArg
+  apply Quotient.sound
+  exact h
+\end{lstlisting}
+
+
+\subsubsection*{Python:}
+
+\begin{lstlisting}[
+    language=python,
+    style = PythonStyle,
+    caption=Python example
+    ]
+import numpy as np
+    
+def incmatrix(genl1,genl2):
+    m = len(genl1)
+    n = len(genl2)
+    M = None #to become the incidence matrix
+    VT = np.zeros((n*m,1), int)  #dummy variable
+    
+    #compute the bitwise xor matrix
+    M1 = bitxormatrix(genl1)
+    M2 = np.triu(bitxormatrix(genl2),1) 
+
+    for i in range(m-1):
+        for j in range(i+1, m):
+            [r,c] = np.where(M2 == M1[i,j])
+            for k in range(len(r)):
+                VT[(i)*n + r[k]] = 1;
+                VT[(i)*n + c[k]] = 1;
+                VT[(j)*n + r[k]] = 1;
+                VT[(j)*n + c[k]] = 1;
+                
+                if M is None:
+                    M = np.copy(VT)
+                else:
+                    M = np.concatenate((M, VT), 1)
+                
+                VT = np.zeros((n*m,1), int)
+    
+    return M
+\end{lstlisting}
+
+
+\subsubsection*{Sage:}
+
+\begin{lstlisting}[language=Sage, style = SageStyle]
+    sage: from sage.misc.citation import get_systems
+    sage: get_systems('integrate(x^2, x)')
+    ['ginac', 'Maxima']
+    sage: R.<x,y,z> = QQ[]
+    sage: I = R.ideal(x^2+y^2, z^2+y)
+    sage: get_systems('I.primary_decomposition()')
+    ['Singular']
+\end{lstlisting}
+
+
+\subsubsection*{MATLAB:}
+
+
+\begin{lstlisting}[language=Matlab, style = MatlabStyle]
+% matlab script sho.m
+% finite difference scheme for simple harmonic oscillator
+
+%%%%%% begin global parameters
+SR = 44100;                         % sample rate (Hz)
+f0 = 1000;                          % fundamental frequency (Hz)
+TF = 1.0;                           % duration of simulation (s)
+u0 = 0.3;                           % initial displacement
+v0 = 0.0;                           % initial velocity
+
+%%%%%% end global parameters
+
+% check that stability condition is satisfied
+
+if(SR<=pi*f0)
+    error('Stability condition violated');
+end
+\end{lstlisting}
+
+
+\clearpage
