@@ -1,0 +1,57 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{The AKS Leap}
+
+The idea behind the AKS test is based on the corolloary of the \hyperref[theorem: flt]{Fermat's Little Theorem:}
+
+\begin{theorem} \label{theorem: 1}
+Given an integer $n \geq 2$, for all integers $a$ coprime to $n$, $n$ is prime if and only if
+
+\begin{equation}
+    (X + a)^{n} \equiv X^{n} + a \Mod n
+\end{equation}
+
+in $\mathbb{Z}[X]$.
+
+\end{theorem}
+
+\begin{proof}
+
+We begin by rewriting $(X + a)^{n}$ using the Binomial theorem:
+
+\begin{equation*}
+    \begin{split}
+        (X + a)^{n} &= \sum_{k=0}^{n} \binom{n}{k} X^{n-k} a^{k} \\
+        &= \sum_{k=0}^{n} \frac{n!}{(n-k)!\;k!} X^{n-k} a^{k} \\
+        &= \frac{n!}{(n-0)!\;0!} X^{n} + \sum_{k=1}^{n-1} \frac{n!}{(n-k)!\;k!} X^{n-k} a^{k} + \frac{n!}{(n-n)!\;n!} a^{n} \\
+        &= X^{n} + \sum_{k=1}^{n-1} \binom{n}{k} X^{n-k} a^{k} + a^{n}.
+    \end{split}
+\end{equation*}
+
+To proceed with the proof, we utilise the following result which we prove in the appendix:
+
+\begin{lemma} \label{lemma: 1}
+    $n$ is prime if-and-only-if $\binom{n}{k} \equiv 0 \Mod n$ for $k \in \{ 2,3,4,...,n-1 \}$.
+\end{lemma}
+
+Continuing, we consider two directions:
+
+$(\Longrightarrow)$: Assume that $n$ is prime. Then $a^{n} \equiv a \Mod{n}$ by the \hyperref[theorem: flt]{Fermat's little theorem}. By Lemma \ref{lemma: 1}, we have $\sum_{k=1}^{n-1} \binom{n}{k} X^{n-k} a^{k} \equiv 0 \Mod{n}$. And so it follows that $(X + a)^{n} \equiv X^{n} + a \Mod n$.
+\newline
+
+$(\Longleftarrow)$: Assume now that $(X + a)^{n} \equiv X^{n} + a \Mod n$. We can rewrite it as $$ \Biggl( \sum_{k=1}^{n-1} \binom{n}{k} X^{n-k} a^{k} \Biggr) + (a^{n} - a) \equiv 0 \Mod n $$ using the expansion above. Then it must hold that $\sum_{k=1}^{n-1} \binom{n}{k} X^{n-k} a^{k} \equiv 0 \Mod n$ \colorbox{red}{which implies} that $n$ is prime by our claim.
+
+Note that the theorem \ref{theorem: 1} is itself a valid primality test. We could compute $(X + a)^{n} - (X^{n} + a) \Mod n$ and check whether $n$ divides each coefficient. But since computing $(X + a)^{n} \Mod n$ requires checking $n+1$ terms in the binomial expansion, it becomes computationally expensive for large $n$. For that reason, it is more optimal to also reduce mod some small degree polynomial, so that neither the coefficients nor the degree get large.
+
+Consider the smallest such polynomial $(X^{r} - 1)$. Dividing $(X + a)^{n}$ by $(X^{r} - 1)$ leaves us with the remainder of $r + 1$ terms as opposed to $n + 1$. The question, of course, is how to determine the optimal parameter $r$ and if it even exists.
+
+\begin{itemize}
+    \item If $r$ is too large, there are less equivalence classes available, so the test may not be able to distinguish primes from composites in some of the cases.
+    \item If $r$ is too small, there are more factors available.
+\end{itemize}
+
+\end{proof}
+
+\end{document}

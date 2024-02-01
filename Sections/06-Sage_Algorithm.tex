@@ -1,0 +1,36 @@
+
+
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+
+\subfile{body/04-Intro_Lean}
+
+\subsection{Implementation of the AKS algorithm}
+
+
+We next consider the AKS algorithm, given the above proof we have actually verified that the following steps produce a prime number:
+\begin{enumerate}
+    \item We find out if $n$ can be written as $n=a^b$ for $a,b>1$ if this can be  done we notice $n=a(a^{b-1})$ hence $n$ is a composite number. 
+    \item Find the smallest $r$ so that the order of $n\mod{r}>(2\log{n})^2$ why $r$ has to be small is important latter. That this order has to be larger then the right side is to satisfy the lower bound on $|G|$
+    \item Check for  $a\in [2,\min{r,n-1}]$ if $a|n$ if this happens output composite. This follows from a primality test for numbers 
+    \item If $n\leq r$ output prime 
+    \item for $a\in [1,\sqrt{\phi(t)}2\log{n}]$
+    check if congruence $(X+a)^n= X^n+a\in \mod{X^r-1,n}$ is true if not output composite. This bound is to garantee all elements that are generated are distinct. 
+    \item Ouput prime 
+\end{enumerate}
+Notice this procedure is a sieving method at each stage we sieve out non prime numbers until the last stage were we apply the proven result. The reason we do this is because it might still be expensive to try and solve the last equation in one go. The code for this procedure is given below:
+To informally show our method is correct we consider the first 10000 numbers and check them for primality. With we see this agrees with what is given in sage:
+
+
+Last we verify gauss his prime number theorem, for this we consider the primes up until $104729$ We count the amount of primes the algorithm gives us this is: $k = 10^4$ dividing this by the amount of numbers we have counted gives us  To compare this with the theorem we compute $\frac{N}{\log{N}}=\frac{}{}$ this comes close to the actual value so we state the theorem is correct for this amount of numbers.  
+
+\end{enumerate}
+
+\end{document}
+
+
+
+
+

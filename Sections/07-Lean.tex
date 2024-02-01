@@ -1,0 +1,59 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+
+\subfile{body/04-Intro_Lean}
+
+\subsection{Proof of ...}
+
+% From Canvas: Include some discussion on design choices, difficulties encountered, failed attempts, unfinished work.
+
+%Please structure the report so that it becomes pleasantly readable for an intended audience of 3rd year math students. It should at least contain an introduction to the mathematical problem(s)/techniques, role/results of the computer assistance, a conclusion, and a bibliography.
+
+The aim of this project was to implement as far as we could the proof of correctness of the AKS primality test, and it became immediately apparent from reading the first paragraph of Chapter 4 of [Grandville's paper] \cite{AGranville_2004} that this was going to be a challenge. In such a short space, already six assumptions are given. One of which is a congruence equation modulo $(n, x^r-1)$. As a reader, one just skims these assumptions, knowing almost immediately what they mean and can proceed to go through the proof. 
+
+This is not the case with Lean. In order to formalize a proof, one has to state all assumptions in the shape of hypothesis from the beginning, and perhaps even write a function to describe a property that is not yet in the Lean library such as a number being a perfect power or not. Furthermore, the types of each variable stated in the assumptions have to be typed correctly which is no small feat. Sometimes there are even choices of type, since you can go from being overly general to very specific. This is relevant since some types have more functions defined for them, some functions only work with a specific type. On top of that, one must define some facts that appear obvious to us like that something is not equal to 0.
+
+
+So, since we were eager to get our hands dirty with some theorem proving we chose to use the proof of the Child's binomial theorem as an exercise, where we didn't yet have to work with polynomial rings. We found the Child's binomial theorem the most relevant proof to complete since the main formula has a similar structure to the one used in AKS, and is actually used in the proof of correctness. Once we found ourselves comfortable with the tactics used in a proof, and investigated further into type theory and the use of number theory, Ideals and rings; we returned to the challenge of stating [the md $(x^r)-1$ formula]. 
+A big obstacle we encountered was the lack of examples and descriptions in the Lean documentation. Since Lean is a relatively new and niche language, we struggled to find different perspectives and explanations on how to use these functions especially since we didn't have the time to build a proper foundation to understand what each type of bracket means and what inputs each function demands. 
+
+Our approach to such a seemingly alien project was to start 
+
+
+This was relatively straight forward, so we opted to 
+
+
+
+- One useful tool we used in Lean was the 'have' tactic. This aids us in structuring a proof in a way that looks more familiar for a mathematician: the proofs that we are used to, written on paper, will only show the relevant steps, or checkmarks along the way and it is left as an exercise to the reader to figure out all the minute details. But for Lean one has to write every step explicitly, leaving no assumption unmentioned.
+
+With 'have' we can state each step and then follow it by an explanation to the computer what to do. 
+There are many ways to prove something in Lean, one can use different tactics that often do the same, we chose this since it makes it the most readable and intuitive.
+
+
+
+Bellow you can see a cheat sheet of tactics we have used in our proof, to give one a quick understanding of our code.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|c|c}
+     Tactic  & Function & Where \\
+     intro  & 5 & 8 \\
+     rw  & 4 & 9n  \\
+     apply  & 5 & 8 \\
+     exact  & 5 & 8 \\
+     constructor  &  break up the bi-implication into the two directions & 8 \\
+     case  & 5 & 8 \\
+     rintro  & 5 & 8 \\
+     let  & 5 & 8 \\
+     simp  & 5 & 8 \\
+     have  & 5 & 8 \\
+    \end{tabular}
+    \caption{Lean tactics}
+    \label{tab:my_label}
+\end{table}
+
+An approach we often use in Lean is to translate statements into logical sentences with logical constructions and quantifiers. This makes it easier to tear apart the proof into smaller more manageable hypothesis. For example, changing the main formula into $\in I$
+
+\end{document}

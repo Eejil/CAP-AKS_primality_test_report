@@ -35,10 +35,10 @@ Project done as partial requirement of the Project Assisted Proof course at VU A
 - `custom_commands.sty`
     Contains some custom commands, math operators, etc, that are specifically useful for this project.
 - `body.tex`  
-    Contains \import statements to the section files and subfolders. 
+    Contains \input{} statements to the section files and subfolders. 
     This also allow commenting in/out entire section easily.
 - `appendix.tex`  
-    Contains \import statements to the appendices files and subfolders. 
+    Contains \input{} statements to the appendices files and subfolders. 
     This also allow commenting in/out entire section easily.
 - `abstract.tex`  
     .tex file containing the abstract.

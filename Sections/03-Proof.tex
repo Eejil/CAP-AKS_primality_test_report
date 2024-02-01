@@ -1,0 +1,113 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{Notes}
+
+% \textbf{Theorem}: (please proof read it and correct whatever u see)\\\\
+The if and only if statement can be rewritten as:
+\begin{equation*}
+    \text{$n$ is prime}\quad\Longleftrightarrow\quad(x + a)^n - (x^n + a)\equiv 0 \Mod n
+\end{equation*}
+Which essentially says that $n$ is prime if and only if $n$ divides all coefficients of the polynomial $(x+a)^n-(x^n+a)$. By the binomial theorem, we can write this polynomial as:
+\begin{equation}
+    \begin{split}    
+        \left(\sum_{k=0}^{n} \binom{n}{k}x^{n-k}a^k\right)-\left(x^n+a \right)
+        & =\left(\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\right)+ x^n +a^n-\left(x^n+a\right)
+        \\ &= \left(\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\right) + \left(a^n-a\right)
+    \end{split}
+    \label{binom}
+\end{equation}
+In order to prove that (\ref{binom}) can be divided by $n$, or equivalently, it is congruent to $0 \Mod n$, we use the two following statements:
+\begin{itemize}
+    \item \textbf{Claim}: $n$ is prime if and only if $\binom{n}{k}\equiv 0 \Mod n$ for $k\in\{2,3,4,\dots,n-1\}$. 
+    \item \textbf{Fermat's little theorem}: If $n$ is a prime number, for any integer $a$,
+    \begin{equation*}
+        a^n \equiv a \Mod n \quad\text{or,}\quad a^n -a \equiv 0 \Mod n.
+    \end{equation*}
+\end{itemize}
+Remember that we have to show in both directions.
+\begin{equation*}
+    \text{$n$ is prime}\quad\Longleftrightarrow\quad \left(\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\right) + (a^n-a)\equiv 0 \Mod n
+\end{equation*}
+
+\begin{itemize}
+    \item $\Longrightarrow$. Assume $n$ is prime. Then $\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\equiv0\Mod n$ by our claim, and $(a^n-a)\equiv 0 \Mod n$ by Fermat's little theorem. 
+    \item $\Longleftarrow$. Assume $\left(\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\right) + (a^n-a)\equiv 0 \Mod n$. Then it must hold that $\sum_{k=1}^{n-1} \binom{n}{k}x^{n-k}a^k\equiv 0 \Mod n$ which implies that $n$ is prime by our claim.
+\end{itemize}
+
+\section{Theorem of Agrawal, Kayal, and Saxena}
+
+\begin{theorem}[Agrawal, Kayal and Saxena] \label{aks}
+
+Given an integer $n \geq 2$, let $0 \leq r < n$ for which $\mbox{ord}_{r}(n) > (\log{n})^{2} \Mod r$. Then $n$ is prime if-and-only-if
+\begin{itemize}
+ \item $n$ is not a perfect power,
+ \item $n$ does not have any prime factor $\leq r$,
+ \item $(X + a)^{n} \equiv X^{n} + a \bmod (n, X^{r} - 1)\; \forall a \in \mathbb{Z}$ such that $1 \leq a \leq \sqrt{r} \log{n}$.
+\end{itemize}
+\end{theorem}
+
+\subsection{Proof overview}
+The goal of this section is to give an outline of the correctness proof of theorem \ref{aks}. We will not focus on a rigorous step by step proof as we are mostly interested in implementing it in Lean, however we still need to be able to understand it to use the proof-assistant.  
+\\\\
+It is important to first make sense of the following theorem:
+\begin{theorem} \label{theorem:1}
+Given an integer $n \geq 2$, for all integers $a$ coprime to $n$, $n$ is prime if and only if
+
+\begin{equation*}
+    (X + a)^{n} \equiv X^{n} + a \Mod n
+\end{equation*}
+
+\end{theorem}
+The proof of the theorem above revolves around the binomial theorem, Fermat's little theorem and the following claim: $n$ is prime if-and-only-if $\binom{n}{k} \equiv 0 \Mod n$ for $k \in \{ 2,3,4,...,n-1 \}$.\\\\
+The forward direction of the if and only if statement of the AKS is pretty straightforward once we assume theorem \ref{theorem:1}. If we let $n$ be prime, the first two conditions in theorem \ref{aks} follow immediately, and the congruence relation holds because every polynomial $\Mod {p,x^r-1}$ is also $\Mod p$.
+\\\\
+The reverse direction requires some more elaborate mathematics. We will prove the implication by contradiction, assuming that $n$ is composite and that all conditions of theorem \ref{aks} hold. Let $p$ be a prime number dividing $n$ and $h(x)\in (\mathbb{Z/p\mathbb{Z})[x]}$ an irreducible factor of $x^r-1$. It then follows that:
+\begin{equation}
+\label{red}
+    (X + a)^{n} \equiv X^{n} + a \Mod {n,x^r-1} \Longrightarrow (X + a)^{n} \equiv X^{n} + a \Mod {p,h(x)}
+\end{equation}
+Note that we are now dealing with the quotient ring $\mathbb{F}:\equiv(\mathbb{Z}[x]/(p,h(x))$ where the ideal $(p,h(x))$ is irreducible. Hence, it is isomorphic to a field, from which we can take the cyclic multiplicative group $\mathbb{F}\backslash \{0\}$, this will be important for the construction of some groups ahead. The reduction in (\ref{red}) has the purpose of allowing us to deal with a field, where the congruence are easier to work with.
+\\\\
+To continue with the prove we have to define a few sets first:
+\begin{itemize}
+    \item Let $H$ be the elements $\Mod {p,x^r-1}$ generated multiplicatively by $x,x+1,...,x+\lfloor A \rfloor $
+    \item Let $G$ be the reduction of $H\Mod {p,h(x)}$ 
+    \item Let $S$ be set of positive integers $k$ for which $g(x^k) \equiv g(x)^k \Mod {p,x^r-1}$ for all \\$g(x) := \prod_{0\leq a\leq A}(x+a)^{e_a}\in H$ where $e_a$ is an arbitrary exponent dependent on $a$.
+    \item Let $R$ be the subgroup of $(\mathbb{Z}/r\mathbb{Z})^*$ generated by $n$ and $p$. 
+\end{itemize}
+We now will find contradicting bounds on $|G|$.
+\subsubsection*{Upper bound}
+Consider the integers of the form $n^ip^j$ with $0\leq i,j\leq \sqrt{|R|}$. Since $n$ is not a power of $p$, they are distinct. It also holds that there are more integers $n^ip^j$ than $|R|$ so two must be congruent, namely, $n^ip^j\equiv n^Ip^j \Mod {r}$ for some other combination $0\leq I,J\leq \sqrt{|R|}$. We now use two lemmas from \ref{}. The first one states that for all $a,b\in S$, we have that $ab\in S$. The second says that if $a,b\in S$ and $a\equiv b \Mod r$, then $a\equiv b \Mod {|G|}$. It then follows that:
+\begin{equation*}
+    |G|\leq |n^ip^j-n^Ip^J|\leq (np)^{\sqrt{|R|}}-1\leq n^{2\sqrt{|R|}}-1
+\end{equation*}
+According to Andrew Granville, $n/p$ is also in $S$, and can be substitute $n$ in the process above, to give a smaller upper boundary: $|G|\leq n^{\sqrt{|R|}}$.
+\subsubsection*{Lower bound}
+To give a lower bound on $|G|$ we must show that there are many distinct element in $G$.\\\\
+Remember that $R$ was generated multiplicatively by $n$ and $p$ in $(\mathbb{Z}/r\mathbb{Z})$, hence it contains all elements of the form $n \Mod r$. By assumption, the order of $n\Mod r$ is greater than $(\log n)^2$, so $R$ has at least more than $(\log n)^2$ elements. We can now say that $|R|>B$ where $B=\lfloor \sqrt{|R|}\log n\rfloor$.\\
+Let $T$ be a proper subset of $\{0,1,2,...,B\}$. So, $|T|\leq B<|R|$. If we consider the polynomials
+\begin{equation}
+\label{pol}
+    \prod_{a\in T}(x+a)
+\end{equation}
+we realize that they are elements of $G$ and their degree is the number of elements $a\in T$, namely, $|T|$ which is less than $|R|$, this will be important to invoke the lemma from \ref{} below.
+\begin{lemma}
+\label{lemma:4.3}
+    Suppose that $f(x), g(x)\in\mathbb{Z}[x]$ with $f(x)\equiv g(x) \Mod {p,h(x)}$ such that their reductions in $\mathbb{F}$ are in $G$.
+    If $deg(f(x)),deg(g(x))<|R|$, then $f(x)\equiv g(x) \Mod p$
+\end{lemma}
+By taking the contrapositive of lemma \ref{lemma:4.3}, it follows that the polynomials \ref{pol} are distinct in $G$ if they are distinct in $(\mathbb{Z}/p\mathbb{Z})[x]$ for every distinct $T$.
+Hence we just need to count the possible sets $T$ which is $2^{B+1}-1$.
+So we can write: $|G|>2^{B+1}-1$. We now just have to show that $2^{B+1}-1>n^{\sqrt{|R|}}-1$:
+\begin{align*}
+& 2^{B+1}-1>n^{\sqrt{|R|}}-1 \Longleftrightarrow 2^{B+1}>n^{\sqrt{|R|}} \Longleftrightarrow \log {(2^{B+1})} > \log {(n^{\sqrt{|R|}})}\Longleftrightarrow B+1 > \sqrt{|R|}\log n\\
+& \Longleftrightarrow \lfloor\sqrt{|R|}\log n\rfloor+1 > \sqrt{|R|}\log n
+\end{align*}
+Hence we proved that $|G|>n^{\sqrt{|R|}}-1$, contradicting the upper bound of $|G|$ we got before.
+
+\newpage
+
+
+\end{document}

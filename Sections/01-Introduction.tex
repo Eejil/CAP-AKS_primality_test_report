@@ -1,0 +1,35 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{Introduction}
+
+The problem of primality testing - determining whether a given number is prime - has been a central topic in number theory for over two millennia. Early methods for primality testing were relatively inefficient. One simple approach, trial division, involved checking the divisibility of the given number by all smaller primes. However, this method becomes impractical for larger numbers, since it requires to check $\sqrt{n}$ divisors of $n$ in the worst case - and $\sqrt{n}$ grows exponentially in the number of digits of $n$.
+
+More sophisticated primality tests were developed along the years, but were either computationally inefficient\footnote{See \href{https://en.wikipedia.org/wiki/Elliptic_curve_primality}{elliptic curve primality testing}.}, non-deterministic\footnote{See \href{https://en.wikipedia.org/wiki/Baillie\%E2\%80\%93PSW_primality_test}{Bailie-PSW test}.}, or relied on the unproven generalised Riemann hypothesis\footnote{See \href{https://en.wikipedia.org/wiki/Miller\%E2\%80\%93Rabin_primality_test}{Miller-Rabin test}.}.
+
+The idea of the method we explore in this report is based on the well-known Fermat's Little Theorem:
+
+\begin{theorem}[Fermat's Little Theorem] \label{theorem: flt}
+    If $n$ is prime, then $n$ divides $a^{n} - a$ for all integers $a$.
+\end{theorem}
+
+the contrapositive of which implies that if $n$ does not divide $a^{n} - a$ for some integer $a$, then $n$ cannot be prime. 
+
+The trouble is, the converse of this statement is not true. That is, if $n$ is composite there is some $a$ for which  $n$ \textbf{does divide} $a^{n} - a$.
+
+\begin{tcolorbox}[title=Example]
+    Consider a composite number $341 = 11 \times 31$ and take $a = 2$. Then $2^{341} - 2$ is divisible by $341$.
+\end{tcolorbox}
+
+But notice that for $a = 3$ above we get $3^{341} \equiv 168 \bmod 341$ which shows that $341$ is composite. So we might ask if we can always find such number $a$ that would tell us if a composite $n$ is actually composite.
+
+It turns out, we cannot. There are certain numbers, called Carmichael numbers, that pass the Fermat test for every $a$ coprime to $n$. In fact, there are infinitely many of them\footnote{https://www.jstor.org/stable/2118576}.
+
+\begin{tcolorbox}[title=Example]
+    Consider a composite number $561 = 3 \times 11 \times 17$, which divides $a^{561} - a$ for all integers $a$.
+\end{tcolorbox}
+
+And so we see that the Fermat test does not always work. Nevertheless, it was a cornerstone for the AKS primality test by Agrawal, Kayal, and Saxena which made a major breakthrough in the history of primality testing. The AKS test is the first to be simultaneously general, polynomial-time, deterministic, and unconditionally correct. Unfortunately, despite its theoretical importance, the AKS test is rarely used in practice, since it outmatches other algorithms only for the very large numbers.
+
+\end{document}

@@ -85,6 +85,8 @@
 \usepackage{textcomp}
 \usepackage{siunitx}
 \usepackage{authblk} % Handle multiple authors and afficliations
+\usepackage{subfiles}
+\usepackage{hyperref}
 
 %%%%% DEFINITION LISTINGS %%%%%
 
@@ -160,42 +162,13 @@ sensitive=true}
     belowskip=.1em
           }
 
-% MATLAB listing environment setup
-\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
-\definecolor{mylilas}{RGB}{170,55,241}
-\lstdefinestyle{MatlabStyle}{
-% language=Matlab,%
-    %basicstyle=\color{red},
-    breaklines=true,%
-    morekeywords={matlab2tikz},
-    keywordstyle=\color{blue},%
-    morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
-    identifierstyle=\color{black},%
-    stringstyle=\color{mylilas},
-    commentstyle=\color{mygreen},%
-    showstringspaces=false,%without this there will be a symbol in the places where there is a space
-    numbers=left,%
-    numberstyle={\tiny \color{black}},% size of the numbers
-    numbersep=9pt, % this defines how far the numbers are from the text
-    emph=[1]{for,end,break},emphstyle=[1]\color{red}, %some words to emphasise
-    %emph=[2]{word1,word2}, emphstyle=[2]{style},    
-    basicstyle={\small \ttfamily},
-}
+
 
 
 \thispagestyle{empty}
 \setlength{\parindent}{1em}
 \setlength{\parskip}{1em}
 \renewcommand{\baselinestretch}{1}
- 	
-%  \setcounter{tocdepth}{3} % Add subsubsection in TOC
-% \setcounter{secnumdepth}{3} % Add numbering to subsubsections
-% \renewcommand{\thechapter}{\Roman{chapter}} % Number chapter with Roman numbers
-% \addto\captionsenglish{\renewcommand{\chaptername}{Part}}   % Rename chapter 'Part'
-% \renewcommand*\thesection{\arabic{section}} % Hide chapter number in section 
-% \renewcommand{\thefigure}{\arabic{section}.\arabic{figure}}
-% \usepackage{chngcntr}
-% \counterwithin{figure}{section}
 
 \title{Project Formalization in Lean: \\[.25em] The AKS primality test} % title
 \author[1]{Luciano Baldassi} % author
@@ -250,7 +223,7 @@ sensitive=true}
 \fi
 
 \if\displayAbstract1
-    \input{abstract}
+    \input{Sections/00-Abstract}
     % \clearpage
 \fi
 
@@ -266,8 +239,8 @@ sensitive=true}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  BODY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{body}
-% \input{body.tex}
+% \input{body}
+\input{body.tex}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -275,7 +248,7 @@ sensitive=true}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \if\displayBib1
     \clearpage
-    \addcontentsline{toc}{chapter}{Bibliography}
+    % \addcontentsline{toc}{section}{References}
     \nocite{*}
     \bibliographystyle{ieeetr}
     % \bibliographystyle{IEEEtranS}
@@ -286,11 +259,11 @@ sensitive=true}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  APPENDIX
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\if\displayAppendix0
-    \pagebreak
-    \appendixpage
-    \appendix
-    \input{appendix}
-\fi
+% \if\displayAppendix0
+%     \pagebreak
+%     \appendixpage
+%     \appendix
+%     \input{appendix}
+% \fi
 
 \end{document}
